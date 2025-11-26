@@ -11,7 +11,7 @@ module.exports = async function scrapeTrip(url, onProgress = () => { }) {
 
     // ---------- Stealth Browser ----------
     const browser = await chromium.launch({
-        headless: false,  // ⚠ ถ้า deploy บน Render ให้เปลี่ยนเป็น true
+        headless: true,  // ⚠ ถ้า deploy บน Render ให้เปลี่ยนเป็น true
         args: ["--disable-blink-features=AutomationControlled"],
     });
 
