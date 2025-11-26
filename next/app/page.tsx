@@ -148,7 +148,6 @@ export default function HomePage() {
 
           {meta && (
             <div className="meta">
-              <div>URL: {meta.url}</div>
               <div>รีวิวทั้งหมด: {meta.total} รายการ</div>
               <div>จำนวนหน้ารีวิว Trip.com: {meta.pages}</div>
             </div>
