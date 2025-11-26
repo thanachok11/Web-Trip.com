@@ -6,6 +6,43 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+// 🏠 Default API Info Page
+app.get("/", (req, res) => {
+  res.send(`
+    <pre style="font-family: monospace; line-height: 1.5;">
+Trip.com Review Scraper API 🚀
+
+สถานะ: API ทำงานพร้อมใช้งาน
+
+📌 Endpoints:
+-------------------------------------
+GET  /                - (หน้านี้) API Info
+GET  /scrape-stream   - ดึงรีวิวแบบ Real-Time (SSE)
+
+📌 วิธีใช้งาน Scraper (SSE):
+-------------------------------------
+ตัวอย่าง:
+https://web-trip-com.onrender.com/scrape-stream?url=YOUR_TRIP_COM_URL
+
+ระบบจะส่ง event:
+  • progress  → ความคืบหน้า (ดึงหน้าไหนอยู่)
+  • done      → ดึงเสร็จพร้อมข้อมูลรีวิวทั้งหมด
+  • error     → เกิดข้อผิดพลาด
+
+📌 ตัวอย่าง event:
+{
+  "page": 3,
+  "totalReviews": 42,
+  "status": "scraping"
+}
+
+-------------------------------------
+Dev: Boss
+Version: 1.0.0
+    </pre>
+  `);
+});
+
 // ⭐ SSE STREAM
 app.get("/scrape-stream", async (req, res) => {
   res.setHeader("Content-Type", "text/event-stream");
@@ -21,7 +58,6 @@ app.get("/scrape-stream", async (req, res) => {
   try {
     await scrapeTrip(
       url,
-      // callback ส่ง progress แบบ real-time
       (progress) => {
         res.write(`event: progress\ndata: ${JSON.stringify(progress)}\n\n`);
       }
