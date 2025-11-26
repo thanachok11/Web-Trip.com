@@ -4,7 +4,8 @@
   "description": "Backend API for Trip.com scraper using Playwright",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js"
+    "start": "node index.js",
+    "postinstall": "npx playwright install chromium --with-deps"
   },
   "keywords": [],
   "author": "",
