@@ -1,5 +1,5 @@
 // scraper.js
-const { chromium } = require("playwright");
+const { chromium } = require("playwright-chromium");
 
 // ⛔ CSV ไม่ต้องใช้แล้ว เพราะเราจะ return JSON
 function normalizeSpaces(s = "") {
