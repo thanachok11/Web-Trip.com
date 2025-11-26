@@ -45,7 +45,45 @@ export default function HomePage() {
     const start = (page - 1) * perPage;
     return reviews.slice(start, start + perPage);
   }, [reviews, page, perPage]);
+  // ----------------------------------
+  // ⭐ EXPORT CSV FUNCTION (วางตรงนี้)
+  // ----------------------------------
+  const exportCSV = () => {
+    if (reviews.length === 0) return;
 
+    const header = [
+      "name",
+      "score",
+      "date",
+      "title",
+      "comment",
+      "reply"
+    ];
+
+    const rows = reviews.map((r) => [
+      r.name,
+      r.score,
+      r.date,
+      `"${r.title.replace(/"/g, '""')}"`,
+      `"${r.comment.replace(/"/g, '""')}"`,
+      `"${r.reply.replace(/"/g, '""')}"`,
+    ]);
+
+    const csvContent =
+      header.join(",") +
+      "\n" +
+      rows.map((row) => row.join(",")).join("\n");
+
+    const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
+    const url = URL.createObjectURL(blob);
+
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "trip_reviews.csv";
+    a.click();
+
+    URL.revokeObjectURL(url);
+  };
   // ----------------------------
   // ⭐ HANDLE SCRAPE via SSE
   // ----------------------------
@@ -192,6 +230,13 @@ export default function HomePage() {
                   ))}
                 </select>
               </div>
+              <button onClick={exportCSV} className="export-btn">
+                <svg fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M12 16V4m0 12l-4-4m4 4l4-4M4 20h16" />
+                </svg>
+                Export CSV
+              </button>
+
             </div>
           </div>
         )}
