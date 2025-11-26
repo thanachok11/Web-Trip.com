@@ -2,7 +2,7 @@
 
 import { useState, useMemo } from "react";
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL || "https://web-trip-com.onrender.com";
+const API_URL = process.env.NEXT_PUBLIC_API_URL || "https://web-trip-com-1.onrender.com";
 
 interface ReviewItem {
   name: string;
@@ -186,7 +186,6 @@ export default function HomePage() {
 
           {meta && (
             <div className="meta">
-              <div>URL: {meta.url}</div>
               <div>รีวิวทั้งหมด: {meta.total} รายการ</div>
               <div>จำนวนหน้ารีวิว Trip.com: {meta.pages}</div>
             </div>
